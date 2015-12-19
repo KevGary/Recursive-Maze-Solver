@@ -141,7 +141,7 @@ var solvable = [
 ];
 ```
 
-####Do the same for other combinations of turns.  You should solve or refactor to a way that can handle X number of turns.
+Do the same for other combinations of turns.  You should solve or refactor to a way that can handle X number of turns.
 
 ###Now for divergence:
 start with [3,1]
