@@ -169,8 +169,16 @@ var solvable = [
 ```
 
 If you're here you probably have everything you need to solve for any and all solutions for any given [x,y] maze.  Known pitfalls 
-are getting stuck in an infitie loop and exceeding maximum stack call time.  Often the problem is, for example, you'll move up one
-and hit dead end, then move on to checking downwards- however when you make the recursive call you're rechecking to see if ones above you
-and then repointing to it, going down, up, dead-end, down, up, dead-end forever.  Obviously same thing can happen right to left, left to
-right, and down to up. 
+are getting stuck in an infitie loop and exceeding maximum stack call time. Often the problem is, for example, you'll move up one
+and hit dead end, then move on to checking downwards- however when you make the recursive call you're rechecking to see if one is above you
+and then repointing to it instead of continuing in other directions- i.e. going down, up, dead-end, down, up, dead-end forever.  
+Obviously same thing can happen right to left, left to right, and down to up. Think about how whenever you go up, you only want to look 
+at going up, left, or right again and never immediately down until through with recursion.
+
+```
+up = up, left, right
+down = down, left, right
+left = left, up, down
+right = right, up, down
+```
 
