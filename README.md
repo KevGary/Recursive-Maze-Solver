@@ -1,7 +1,7 @@
 # Recursive-Maze-Solver
 Simple GUI displaying recursive solution to any and all solutions of a M x N maze, given in the form of a 2D array.
 
-## Git clone or download and open index.html locally to view GUI
+## Git clone or download and open/run index.html locally to view GUI
 
 
 The original recursive solution can be found below.  The one in testAlgo.js is the same sans a few extra lines of jQuery calls for coloring purposes.
@@ -62,7 +62,7 @@ function solveMaze(mazeArray, startingIndex) {
 ```
 
 
-Good test cases to start with testing with:
+###Good test cases to start with testing with:
 
 
 start with [2,1] for testing up
@@ -129,7 +129,7 @@ var solvable = [
 ];
 ```
 
-Now for changes in your path:
+####Now for changes in your path:
 
 start with [1,1] for testing right then down
 ```
@@ -141,14 +141,26 @@ var solvable = [
 ];
 ```
 
-Do the same for other combinations of turns.  You should solve or refactor to a way that can handle X number of turns.
+####Do the same for other combinations of turns.  You should solve or refactor to a way that can handle X number of turns.
 
-Now for divergence:
-start with [3,1] for testing right then down
+###Now for divergence:
+start with [3,1]
 ```
 var solvable = [
   [0,0,0,1,0,0],
   [0,0,0,1,0,0],
+  [0,0,0,1,0,0],
+  [0,1,1,1,0,0],
+  [0,0,0,1,1,0],
+  [0,0,0,0,0,0],
+];
+```
+And with divergence for multiple solutions:
+start with [3,1]
+```
+var solvable = [
+  [0,0,0,1,0,0],
+  [0,0,0,1,1,1],
   [0,0,0,1,0,0],
   [0,1,1,1,0,0],
   [0,0,0,1,1,0],
