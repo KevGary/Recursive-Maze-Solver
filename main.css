@@ -1,0 +1,22 @@
+body {
+  text-align: center;
+}
+
+.maze {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 25px;
+  table-layout: fixed;
+  overflow: auto;
+}
+
+.maze td {
+  overflow: auto;
+  border: 1px solid black;
+  padding: 15px;
+  background-color: gray;
+}
+
+.start {
+  margin-top: 40px;
+}
