@@ -62,7 +62,7 @@ function solveMaze(mazeArray, startingIndex) {
 ```
 
 
-###Good test cases to start with testing with:
+###Good test cases to start testing with:
 
 
 start with [2,1] for testing up
