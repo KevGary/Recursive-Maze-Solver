@@ -7,57 +7,70 @@ Simple GUI displaying recursive solution to any and all solutions of a M x N maz
 The original recursive solution can be found below.  The one in testAlgo.js is the same sans a few extra lines of jQuery calls for coloring purposes.
 
 ```
-function solveMaze(mazeArray, startingIndex) {
+function solveMaze(mazeArray, startingIndex, flag, path, solutions) {
   var rowIndex = startingIndex[0];
   var columnIndex = startingIndex[1];
   var flag = flag || '';
   var path = path || [];
+  var solutions = solutions || [];
 
-  if(mazeArray[rowIndex-1][columnIndex] == 1 && (flag == '' || flag != 'down')) {
-    path.push([rowIndex, columnIndex]);
-    function testUp() {
-      return solveMaze(mazeArray, [rowIndex-1, columnIndex], 'up', path);
+  if(mazeArray[rowIndex][columnIndex] == 1) {
+    path.push([rowIndex, columnIndex])
+    if(rowIndex == 0){
+      return true;
     }
-    if (testUp() == true) {
-      console.log('escaped from the top!')
+    if(rowIndex == mazeArray.length-1) {
+      return true;
+    }    
+    if(columnIndex == mazeArray[rowIndex].length-1) {
+      return true;
+    }
+    if(columnIndex == 0){
+      return true;
+    }
+  }
+  
+  if(mazeArray[rowIndex-1][columnIndex] == 1 && (flag == '' || flag != 'down')) {
+    function goUp() {
+      return solveMaze(mazeArray, [rowIndex-1, columnIndex], 'up', path, solutions);
+    }
+    if(goUp() == true) {
+      solutions.push(path)
     } else {
       path = [];
     }
   }
   if(mazeArray[rowIndex+1][columnIndex] == 1 && (flag == '' || flag != 'up')) {
-    path.push([rowIndex, columnIndex]);
-    function testDown() {
-      return solveMaze(mazeArray, [rowIndex+1, columnIndex], 'down', path);
+    function goDown() {
+      return solveMaze(mazeArray, [rowIndex+1, columnIndex], 'down', path, solutions);
     }
-    if (testDown() == true) {
-      console.log('escaped from the bottom!')
+    if(goDown() == true) {
+      solutions.push(path);
     } else {
       path = [];
     }
   }
   if(mazeArray[rowIndex][columnIndex+1] == 1 && (flag == '' || flag != 'left')) {
-    path.push([rowIndex, columnIndex]);
-    function testRight() {
-      return solveMaze(mazeArray, [rowIndex, columnIndex+1], 'right', path);
+    function goRight() {
+      return solveMaze(mazeArray, [rowIndex, columnIndex+1], 'right', path, solutions);
     }
-    if (testRight() == true) {
-      console.log('escaped from the right!')
+    if(goRight() == true) {
+      solutions.push(path);
     } else {
       path = [];
     }
   }
   if(mazeArray[rowIndex][columnIndex-1] == 1 && (flag == '' || flag != 'right')) {
-    path.push([rowIndex, columnIndex]);
-    function testLeft() {
-      return solveMaze(mazeArray, [rowIndex, columnIndex-1], 'left', path);
+    function goLeft() {
+      return solveMaze(mazeArray, [rowIndex, columnIndex-1], 'left', path, solutions);
     }
-    if (testLeft() == true) {
-      console.log('escaped from the left!')
+    if(goLeft() == true) {
+      solutions.push(path);
     } else {
       path = [];
     }
   }
-  return false;
+  return solutions;
 }
 ```
 

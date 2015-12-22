@@ -3,90 +3,98 @@
 //can be [row, column] or [column, row]
 
 //helper
-function coloringTimeout(coordinates, time) {
-  setTimeout(function () {
-    $('#' + String(coordinates[0]) + String(coordinates[1])).css("background-color", "green");
-  }, time);
-}
-
+// function coloringTimeout(solutions, time) {
+//   var length = 0;
+//   for(var i = 0; i < solutions.length; i++) {
+//     for(var j = 0; j < solutions[i].length; j++) {
+//       setTimeout()
+//       $('#' + String(solutions[i][j][0]) + String(solutions[i][j][1])).css("background-color", "green");
+//     }
+//   }
+// }
+var solvable = [
+  [0,0,0,0,1,0],
+  [0,0,0,0,1,0],
+  [0,1,1,1,1,0],
+  [0,1,0,0,1,1],
+  [0,1,0,0,0,0],
+  [0,1,0,0,0,0],
+]
 //main
-function solveMaze(mazeArray, startingIndex, flag, path) {
+function solveMaze(mazeArray, startingIndex, flag, path, solutions) {
   var rowIndex = startingIndex[0];
   var columnIndex = startingIndex[1];
   var flag = flag || '';
   var path = path || [];
-  var timeIncrement = timeIncrement || 0;
+  var solutions = solutions || [];
 
   if(mazeArray[rowIndex][columnIndex] == 1) {
+    path.push([rowIndex, columnIndex])
     if(rowIndex == 0){
-      path.push([rowIndex, columnIndex]);
       return true;
     }
     if(rowIndex == mazeArray.length-1) {
-      path.push([rowIndex, columnIndex]);
       return true;
     }    
     if(columnIndex == mazeArray[rowIndex].length-1) {
-      path.push([rowIndex, columnIndex]);
       return true;
     }
     if(columnIndex == 0){
-      path.push([rowIndex, columnIndex]);
       return true;
     }
   }
-
+  
   if(mazeArray[rowIndex-1][columnIndex] == 1 && (flag == '' || flag != 'down')) {
-    path.push([rowIndex, columnIndex]);
-    function testUp() {
-      return solveMaze(mazeArray, [rowIndex-1, columnIndex], 'up', path);
+    function goUp() {
+      return solveMaze(mazeArray, [rowIndex-1, columnIndex], 'up', path, solutions);
     }
-    if (testUp() == true) {
-      for(var i = 0; i < path.length; i++) {
-        coloringTimeout(path[i], timeIncrement+=250)
-      }
+    if(goUp() == true) {
+      solutions.push(path)
     } else {
       path = [];
     }
   }
   if(mazeArray[rowIndex+1][columnIndex] == 1 && (flag == '' || flag != 'up')) {
-    path.push([rowIndex, columnIndex]);
-    function testDown() {
-      return solveMaze(mazeArray, [rowIndex+1, columnIndex], 'down', path);
+    function goDown() {
+      return solveMaze(mazeArray, [rowIndex+1, columnIndex], 'down', path, solutions);
     }
-    if (testDown() == true) {
-      for(var i = 0; i < path.length; i++) {
-        coloringTimeout(path[i], timeIncrement+=250)
-      }
+    if(goDown() == true) {
+      solutions.push(path);
     } else {
       path = [];
     }
   }
   if(mazeArray[rowIndex][columnIndex+1] == 1 && (flag == '' || flag != 'left')) {
-    path.push([rowIndex, columnIndex]);
-    function testRight() {
-      return solveMaze(mazeArray, [rowIndex, columnIndex+1], 'right', path);
+    function goRight() {
+      return solveMaze(mazeArray, [rowIndex, columnIndex+1], 'right', path, solutions);
     }
-    if (testRight() == true) {
-      for(var i = 0; i < path.length; i++) {
-        coloringTimeout(path[i], timeIncrement+=250)
-      }
+    if(goRight() == true) {
+      solutions.push(path);
     } else {
       path = [];
     }
   }
   if(mazeArray[rowIndex][columnIndex-1] == 1 && (flag == '' || flag != 'right')) {
-    path.push([rowIndex, columnIndex]);
-    function testLeft() {
-      return solveMaze(mazeArray, [rowIndex, columnIndex-1], 'left', path);
+    function goLeft() {
+      return solveMaze(mazeArray, [rowIndex, columnIndex-1], 'left', path, solutions);
     }
-    if (testLeft() == true) {
-      for(var i = 0; i < path.length; i++) {
-        coloringTimeout(path[i], timeIncrement+=250)
-      }
+    if(goLeft() == true) {
+      solutions.push(path);
     } else {
       path = [];
     }
   }
-  return false;
+  return solutions;
 }
+
+// console.log(solveMaze(solvable, [1, 1]));
+// var x = solveMaze(solvable, [1,1]);
+// console.log('-------')
+// console.log(x)
+// console.log(x[0])
+// console.log(x[0][0][0])
+// console.log(x[0][0][1])
+// console.log(x[0][1][0])
+// console.log(x[0][1][1])
+// console.log(solveMaze(solvable, [1,1]))
+

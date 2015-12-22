@@ -20,3 +20,8 @@ body {
 .start {
   margin-top: 40px;
 }
+
+h4, h5 {
+  margin-left: 20%;
+  margin-right: 20%;
+}
